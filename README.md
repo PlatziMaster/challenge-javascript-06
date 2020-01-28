@@ -1,4 +1,4 @@
-# challenge-javascript-05 - Problema de suma combinada
+# challenge-javascript-06 - Problema de suma combinada
 
 Dado un conjunto de números candidatos (candidatos) (sin duplicados) y un número objetivo (objetivo), encuentre todas las combinaciones únicas en candidatos donde los números candidatos suman al objetivo.
 

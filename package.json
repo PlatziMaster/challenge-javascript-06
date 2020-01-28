@@ -1,5 +1,5 @@
 {
-  "name": "challenge-js-05",
+  "name": "challenge-js-06",
   "version": "1.0.0",
   "description": "Problema de suma combinada",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PlatziMaster/challenge-js-05.git"
+    "url": "git+https://github.com/PlatziMaster/challenge-js-06.git"
   },
   "keywords": [
     "JavaScript"

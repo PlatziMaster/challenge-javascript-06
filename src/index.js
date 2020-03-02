@@ -7,10 +7,33 @@
  * @return {number[][]}
  */
 
-const combinationSumRecursive = (
+const combinationSumRecursive = (candidates, target) => {
+  if (candidates.length === 0) return [];
+
+  if (candidates.length === 1) {
+    if (target % candidates[0] === 0) {
+      let multiplexCandidate = [];
+
+      for (let i = 0; i < target/candidates[0]; i++) {
+        multiplexCandidate.push(candidates[0]);
+      }
+      return [multiplexCandidate];
+    } else {
+      return [];
+    }
+  } else {
+    let effectiveCandidates = candidates.filter((candidate) => target >= candidate);
     
+    let useCandidate = combinationSumRecursive(effectiveCandidates, target - effectiveCandidates[0]);
+    let unuseCandidate = combinationSumRecursive(effectiveCandidates.slice(1), target);
+    let result = [
+      ...useCandidate.map((partial) => [effectiveCandidates[0], ...partial]) ,
+      ...unuseCandidate
+    ];
+    return result;
   }
-  
+}
+
   /**
    * Backtracking algorithm of finding all possible combination for specific sum.
    *
@@ -20,6 +43,6 @@ const combinationSumRecursive = (
    */
 const combinationSum = (candidates, target) => {
     return combinationSumRecursive(candidates, target);
-  }
+}
 
 module.exports = combinationSum;

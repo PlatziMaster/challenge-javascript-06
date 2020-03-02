@@ -8,25 +8,30 @@
  */
 
 const combinationSumRecursive = (candidates, target) => {
-  if(!candidates.length || target<0) return[];
+  if (candidates.length === 0) return [];
 
-  console.log(`Candidates: ${candidates}; target: ${target}`)
-  
-  effectiveCandidates = candidates.filter((candidate) => candidate <= target)
-  let result = effectiveCandidates.map((candidate) =>{
-    let useCandidate = combinationSumRecursive(effectiveCandidates, target - candidate);
-    let unuseCandidate= combinationSumRecursive(rmValueOfArray(effectiveCandidates, candidate), target);
-    useCandidate = useCandidate.map((partialSolution) => partialSolution.unshift(candidate));
-    return[...useCandidate,...unuseCandidate];
-  });
-  console.log(result);
-  
-  return result;
-}
+  if (candidates.length === 1) {
+    if (target % candidates[0] === 0) {
+      let multiplexCandidate = [];
 
-
-const rmValueOfArray = (arr, value) => {
-  return arr.filter((elem)=> elem !== value);
+      for (let i = 0; i < target/candidates[0]; i++) {
+        multiplexCandidate.push(candidates[0]);
+      }
+      return [multiplexCandidate];
+    } else {
+      return [];
+    }
+  } else {
+    let effectiveCandidates = candidates.filter((candidate) => target >= candidate);
+    
+    let useCandidate = combinationSumRecursive(effectiveCandidates, target - effectiveCandidates[0]);
+    let unuseCandidate = combinationSumRecursive(effectiveCandidates.slice(1), target);
+    let result = [
+      ...useCandidate.map((partial) => [effectiveCandidates[0], ...partial]) ,
+      ...unuseCandidate
+    ];
+    return result;
+  }
 }
 
   /**
@@ -39,9 +44,5 @@ const rmValueOfArray = (arr, value) => {
 const combinationSum = (candidates, target) => {
     return combinationSumRecursive(candidates, target);
 }
-
-console.log(combinationSum([1],1));
-
-
 
 module.exports = combinationSum;

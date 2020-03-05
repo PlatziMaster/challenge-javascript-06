@@ -19,7 +19,7 @@ function combinationSumRecursive(
 
   if (remainingSum === 0) {
    
-    finalCombinations.push(currentCombination.slice());
+    finalCombinations.push([...currentCombination]);
 
     return finalCombinations;
   }

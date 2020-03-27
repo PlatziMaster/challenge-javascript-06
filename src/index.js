@@ -18,9 +18,14 @@ const combinationSumRecursive = (candidates, remainingSum, finalCombinations, cu
   }
 
   candidates.slice(startFrom).forEach((candidate, index) =>{
-    currentCombination.push(candidate)
-    combinationSumRecursive(candidates, remainingSum - candidate, finalCombinations, currentCombination, index + startFrom)
-    currentCombination.pop()
+    combinationSumRecursive(
+      candidates,
+      remainingSum - candidate,
+      finalCombinations,
+      [...currentCombination,
+        candidate],
+        index + startFrom
+      )
   })
 
   return finalCombinations

@@ -15,7 +15,7 @@ const combinationSumRecursive = (candidates, remainingSum, finalCombinations, cu
   else {
     if (remainingSum < 0)
       return [];
-    else
+    else {
       for (let currentIndex = startFrom; currentIndex < candidates.length; currentIndex++) {
         const currentNumber = candidates[currentIndex];
           currentCombination.push(currentNumber);
@@ -23,6 +23,7 @@ const combinationSumRecursive = (candidates, remainingSum, finalCombinations, cu
         currentCombination.pop();
       }
       return finalCombinations;
+    }
   }  
 }
 

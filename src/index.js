@@ -7,9 +7,22 @@
  * @return {number[][]}
  */
 
-const combinationSumRecursive = (
-    
+const combinationSumRecursive = (candidates, remainingSum, finalCombinations, currentCombination, startFrom) => {
+  if (remainingSum === 0) {
+    finalCombinations.push([...currentCombination]);
+  } else if (remainingSum > 0) {
+    candidates.slice(startFrom).forEach((candidate, index) => {
+      combinationSumRecursive(
+        candidates, 
+        remainingSum - candidate, 
+        finalCombinations, 
+        [...currentCombination, candidate], 
+        startFrom + index);
+    });
   }
+
+  return finalCombinations;    
+}
   
   /**
    * Backtracking algorithm of finding all possible combination for specific sum.
@@ -19,7 +32,7 @@ const combinationSumRecursive = (
    * @return {number[][]}
    */
 const combinationSum = (candidates, target) => {
-    return combinationSumRecursive(candidates, target);
+    return combinationSumRecursive(candidates, target, [], [], 0);
   }
 
 module.exports = combinationSum;

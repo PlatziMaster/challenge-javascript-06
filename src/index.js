@@ -7,8 +7,35 @@
  * @return {number[][]}
  */
 
-const combinationSumRecursive = (
-    
+const combinationSumRecursive = (candidates, target) => {
+    let result = []
+
+    const recursion = (sum, candidatesCombination) => {
+
+      for( let candidate of candidates ) {
+        
+        let temp = sum + candidate;
+
+        if(temp === target) {
+          candidatesCombination.push(candidate);
+          candidatesCombination.sort((a,b) => a - b);
+          result.push(candidatesCombination);
+          break;
+        }
+        
+        if(temp > target) {
+          break;
+        }
+
+        recursion(temp, candidatesCombination.concat(candidate))
+      };
+    }
+
+    recursion(0, [])
+
+    let uniqueResult = Array.from(new Set(result.map(JSON.stringify)), JSON.parse);
+
+    return uniqueResult;
   }
   
   /**

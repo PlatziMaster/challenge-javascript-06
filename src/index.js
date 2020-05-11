@@ -1,12 +1,20 @@
 /**
  * @param {number[]} candidates - candidate numbers we're picking from.
- * @param {number} remainingSum - remaining sum after adding candidates to currentCombination.
+ * @param {number} remainingSum - remaining sum after adding candidates to 
+ *                                currentCombination.
  * @param {number[][]} finalCombinations - resulting list of combinations.
  * @param {number[]} currentCombination - currently explored candidates.
- * @param {number} startFrom - index of the candidate to start further exploration from.
+ * @param {number} startFrom - index of the candidate to start further exploration
+ *                             from
  * @return {number[][]}
  */
-const combinationSumRecursive = (candidates, remainingSum, finalCombinations, currentCombination, startFrom) => {
+const combinationSumRecursive = (
+  candidates,
+  remainingSum,
+  finalCombinations = [],
+  currentCombination = [],
+  startFrom = 0
+) => {
   if (remainingSum === 0) {
     finalCombinations.push(currentCombination.slice());
     currentCombination = [];
@@ -17,14 +25,18 @@ const combinationSumRecursive = (candidates, remainingSum, finalCombinations, cu
       return [];
     else {
       for (let currentIndex = startFrom; currentIndex < candidates.length; currentIndex++) {
-        const currentNumber = candidates[currentIndex];
-          currentCombination.push(currentNumber);
-        combinationSumRecursive(candidates, remainingSum - currentNumber, finalCombinations, currentCombination, currentIndex);
-        currentCombination.pop();
+        const currentNumber = candidates[currentIndex];          
+        combinationSumRecursive(
+          candidates,
+          remainingSum - currentNumber,
+          finalCombinations,
+          [...currentCombination, currentNumber],
+          currentIndex
+        );
       }
       return finalCombinations;
     }
-  }  
+  }
 }
 
 /**
@@ -35,7 +47,7 @@ const combinationSumRecursive = (candidates, remainingSum, finalCombinations, cu
  * @return {number[][]}
  */
 const combinationSum = (candidates, target) => {
-  return combinationSumRecursive(candidates, target, [], [], 0);
+  return combinationSumRecursive(candidates, target);
 }
 
 module.exports = combinationSum;

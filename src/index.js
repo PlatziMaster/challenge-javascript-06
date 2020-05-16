@@ -7,10 +7,44 @@
  * @return {number[][]}
  */
 
-const combinationSumRecursive = (
-    
+//Initializing variables
+function combinationSumRecursive(
+  candidates,
+  remainingSum,
+  finalCombinations = [],
+  currentCombination = [],
+  startFrom = 0,
+)
+
+//Recursive function
+//Block of code
+{
+  if (remainingSum < 0) {
+    return finalCombinations;
   }
-  
+
+  if (remainingSum === 0) {
+    finalCombinations.push(currentCombination.slice());
+    return finalCombinations;
+  }
+
+  //Cycle
+  for (let candidateNumber = startFrom; candidateNumber < candidates.length; candidateNumber ++) {
+    const currentCandidate = candidates[candidateNumber];
+    currentCombination.push(currentCandidate);
+    combinationSumRecursive(
+      candidates,
+      remainingSum - currentCandidate,
+      finalCombinations,
+      currentCombination,
+      candidateNumber,
+    );
+    currentCombination.pop();
+  }
+
+  return finalCombinations;
+}
+
   /**
    * Backtracking algorithm of finding all possible combination for specific sum.
    *

@@ -7,9 +7,53 @@
  * @return {number[][]}
  */
 
-const combinationSumRecursive = (
-    
+const combinationSumRecursive = (candidates, target, startFrom = 0, remainingSum = target, currentCombination = [], finalCombinations = []) => { 
+  
+  // If the recursivity has to continue or not
+  if(startFrom >= candidates.length){
+    return finalCombinations;
   }
+
+  // Verificate if the selected number can plus for himself
+  while(candidates[startFrom] <= remainingSum){
+    currentCombination.push(candidates[startFrom]);
+    remainingSum = remainingSum-candidates[startFrom];
+    if(candidates.includes(remainingSum)){
+      let currNum = candidates.filter(num => num === remainingSum);
+      currentCombination.push(currNum[0]);
+      remainingSum = remainingSum-currNum[0];
+    }
+  }
+  
+  // If the current combination it's correct
+  if(remainingSum === 0){
+    finalCombinations.push(currentCombination);
+    currentCombination = [];
+    remainingSum = target;
+  }
+
+  // Plus each number until get the result
+  for(let i = 0; i < candidates.length; i++){
+    if(candidates.includes(remainingSum)){
+      
+    }else if(candidates[i] <= remainingSum){
+      currentCombination.push(candidates[i])
+      remainingSum = remainingSum-candidates[i]
+      if(remainingSum === 0){
+        finalCombinations.push(currentCombination);
+        currentCombination = [];
+        remainingSum = target;
+      }
+
+    }else if(remainingSum != 0 ){
+      currentCombination = [];
+      remainingSum = target;
+    }
+  }
+
+  candidates.shift()
+  return combinationSumRecursive(candidates,target,startFrom,remainingSum,currentCombination,finalCombinations)
+}
   
   /**
    * Backtracking algorithm of finding all possible combination for specific sum.
@@ -21,5 +65,6 @@ const combinationSumRecursive = (
 const combinationSum = (candidates, target) => {
     return combinationSumRecursive(candidates, target);
   }
+
 
 module.exports = combinationSum;

@@ -9,7 +9,7 @@
 
 const combinationSumRecursive = (
   candidates,
-  target,
+  remainingSum,
   finalResult = [],
   currentCombination = [],
   startFrom = 0
@@ -19,13 +19,13 @@ const combinationSumRecursive = (
     0
   );
 
-  if (sum === target) finalResult.push(Array.from(currentCombination));
-  if (sum > target) return;
+  if (sum === remainingSum) finalResult.push(Array.from(currentCombination));
+  if (sum > remainingSum) return;
 
   for (let i = startFrom; i < candidates.length; i++) {
     combinationSumRecursive(
       candidates.slice(i),
-      target,
+      remainingSum,
       finalResult,
       currentCombination.concat(candidates[i])
     );

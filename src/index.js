@@ -8,18 +8,41 @@
  */
 
 const combinationSumRecursive = (
-    
+  candidates,
+  remainingSum,
+  finalResult = [],
+  currentCombination = [],
+  startFrom = 0
+) => {
+  let sum = currentCombination.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+
+  if (sum === remainingSum) finalResult.push(Array.from(currentCombination));
+  if (sum > remainingSum) return;
+
+  for (let i = startFrom; i < candidates.length; i++) {
+    combinationSumRecursive(
+      candidates.slice(i),
+      remainingSum,
+      finalResult,
+      currentCombination.concat(candidates[i])
+    );
   }
-  
-  /**
-   * Backtracking algorithm of finding all possible combination for specific sum.
-   *
-   * @param {number[]} candidates
-   * @param {number} target
-   * @return {number[][]}
-   */
+  return finalResult;
+};
+/**
+ * Backtracking algorithm of finding all possible combination for specific sum.
+ *
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
 const combinationSum = (candidates, target) => {
-    return combinationSumRecursive(candidates, target);
-  }
+  return combinationSumRecursive(candidates, target);
+};
+
+//console.log(combinationSum([2, 3, 6, 7], 7));
 
 module.exports = combinationSum;

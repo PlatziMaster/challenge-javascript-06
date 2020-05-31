@@ -11,7 +11,6 @@ const combinationSumRecursive = (candidates, target, startFrom = 0, remainingSum
   
   // If the recursivity has to continue or not
   if(startFrom >= candidates.length){
-    console.log(finalCombinations);
     return finalCombinations;
   }
 
@@ -53,7 +52,7 @@ const combinationSumRecursive = (candidates, target, startFrom = 0, remainingSum
   }
 
   candidates.shift()
-  combinationSumRecursive(candidates,target,startFrom,remainingSum,currentCombination,finalCombinations)
+  return combinationSumRecursive(candidates,target,startFrom,remainingSum,currentCombination,finalCombinations)
 }
   
   /**
@@ -67,10 +66,5 @@ const combinationSum = (candidates, target) => {
     return combinationSumRecursive(candidates, target);
   }
 
-  combinationSum([1], 4);
-  combinationSum([2,3,6,7], 7);
-  combinationSum([2,3,5], 8);
-  combinationSum([2,5], 3);
-  combinationSum([], 3);
 
 module.exports = combinationSum;

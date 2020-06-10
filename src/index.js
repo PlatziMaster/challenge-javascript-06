@@ -11,8 +11,8 @@ const combinationSumRecursive = (
     candidates,
     target
   ) => {
-    let finalResult = [];
-    let recur = function(remain, index, current){
+    const finalResult = [];
+    const recur = (remain, index, current) => {
       if(remain < 0){
         return;
       }

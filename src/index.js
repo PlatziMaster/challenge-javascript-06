@@ -8,9 +8,29 @@
  */
 
 const combinationSumRecursive = (
-    
+    candidates,
+    target
+  ) => {
+    let finalResult = [];
+    let recur = function(remain, index, current){
+      if(remain < 0){
+        return;
+      }
+      if(remain == 0){
+        finalResult.push(current.slice());
+      }
+      for(let i = index; i < candidates.length; i++){
+        current.push(candidates[i]);
+        recur(remain - candidates[i], i, current);
+        current.pop();
+      }
+    };
+
+    recur(target, 0 , []);
+    return finalResult;
+
   }
-  
+
   /**
    * Backtracking algorithm of finding all possible combination for specific sum.
    *

@@ -55,7 +55,7 @@ const combinationSumRecursive = (candidatos, num) => {
       }
     }
   }
-  return arrayResultado;
+  return arrayResultado.reverse();
 };
 
 /**

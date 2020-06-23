@@ -8,7 +8,27 @@
  */
 
 const combinationSumRecursive = (
-    
+  candidates,
+  target
+) => {
+  const finalResult = [];
+  const recur = (remainingSum, index, currentCombination) => {
+    if(remainingSum < 0){
+      return;
+    }
+    if(remainingSum == 0){
+      finalResult.push(currentCombination.slice());
+    }
+    for(let i = index; i < candidates.length; i++){
+      currentCombination.push(candidates[i]);
+      recur(remainingSum - candidates[i], i, currentCombination);
+      currentCombination.pop();
+    }
+  };
+
+  recur(target, 0 , []);
+  return finalResult;
+
   }
   
   /**

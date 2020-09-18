@@ -7,19 +7,53 @@
  * @return {number[][]}
  */
 
-const combinationSumRecursive = (
-    
-  }
-  
-  /**
-   * Backtracking algorithm of finding all possible combination for specific sum.
-   *
-   * @param {number[]} candidates
-   * @param {number} target
-   * @return {number[][]}
-   */
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+/**
+ * Backtracking algorithm of finding all possible combination for specific sum.
+ *
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+
+
 const combinationSum = (candidates, target) => {
-    return combinationSumRecursive(candidates, target);
+  let totalArrys = []
+  let arrayPerNumber= []
+  
+  for (const candidate of candidates) {
+    arrayPerNumber = []
+    if (candidate > target) {
+      continue
+    } else if (candidate === target) {
+      arrayPerNumber.push(candidate)
+      totalArrys.push(arrayPerNumber)
+      continue
+    } else {
+      for (let index = 0; index < candidates.length; index++) {
+        arrayPerNumber = []
+        arrayPerNumber.push(candidate)
+        if ((arrayPerNumber.reduce(reducer) + candidates[index]) <= target) {
+          
+          do {
+            arrayPerNumber.push(candidates[index])
+          } while (arrayPerNumber.reduce(reducer) < target)
+
+          if(arrayPerNumber.reduce(reducer) === target) {
+            arrayPerNumber = arrayPerNumber.sort((a, b) => a - b)
+            let compare = JSON.stringify(arrayPerNumber)
+            
+            let exist = totalArrys.find( item => JSON.stringify(item) === compare)
+            
+            if (!exist) totalArrys.push(arrayPerNumber)
+          } 
+        }
+      }
+    }
   }
+
+  return totalArrys
+};
 
 module.exports = combinationSum;
